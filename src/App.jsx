@@ -20,7 +20,17 @@ function App() {
 
   const addTask = (e) => {
     e.preventDefault();
-    if (!title.trim()) return;
+
+    // validate without using trim: stop if any field is exactly empty string
+    const missing = [];
+    if (title === "") missing.push("Title");
+    if (date === "") missing.push("Date");
+    if (details === "") missing.push("Details");
+
+    if (missing.length > 0) {
+      alert("Please fill in: " + missing.join(", "));
+      return;
+    }
 
     if (editingIndex !== null) {
       // update existing
@@ -66,6 +76,7 @@ function App() {
     setDate("");
     setDetails("");
   };
+  
 
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col items-center py-12">
